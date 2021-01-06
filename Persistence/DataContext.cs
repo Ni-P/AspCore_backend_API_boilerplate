@@ -12,7 +12,9 @@ namespace Persistence
 
         public DbSet<Parent> Parents { get; set; }
         public DbSet<Child> Children { get; set; }
-        // public DbSet<FamilyRelationship> FamilyMembers { get; set; }
+        
+        // TODO: implement handlers, controllers and CRUD operations for this table
+        public DbSet<FamilyRelationship> FamilyMembers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
