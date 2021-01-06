@@ -10,6 +10,6 @@ namespace Domain
         public int Age { get; set; }
         public DateTime Birthday { get; set; }
         public virtual ICollection<Child> Children { get; set; }
-        public ICollection<FamilyRelationship> FamilyRelationships { get; set; }
+        public virtual ICollection<FamilyRelationship> FamilyRelationships { get; set; }
     }
 }

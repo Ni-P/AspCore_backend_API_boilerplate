@@ -47,16 +47,20 @@ namespace API
                 opt.UseLazyLoadingProxies();
                 opt.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
             });
-            
+
             // setup Cors
             services.AddCors(opt =>
             {
                 opt.AddPolicy("CorsPolicy",
-                    policy => { policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000").AllowCredentials(); });
+                    policy =>
+                    {
+                        policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000")
+                            .AllowCredentials();
+                    });
             });
             services.AddMediatR(typeof(List.Handler).Assembly);
             services.AddAutoMapper(typeof(List.Handler));
-            
+
             // add controllers with identity and validation
             services.AddControllers(opt =>
                 {
@@ -98,7 +102,7 @@ namespace API
                         // config for SignalR
                         var accessToken = context.Request.Query["access_token"];
                         var path = context.HttpContext.Request.Path;
-                        if (!string.IsNullOrEmpty(accessToken) && (path.StartsWithSegments("/chat")))
+                        if (!string.IsNullOrEmpty(accessToken) && (path.StartsWithSegments("/pathtochannel")))
                         {
                             context.Token = accessToken;
                         }
@@ -111,9 +115,13 @@ namespace API
             // services.AddScoped<IJwtGenerator, JwtGenerator>();
             // service to access user in handlers for the auth pipeline
             services.AddScoped<IUserAccessor, UserAccessor>();
-            
+
             // Swagger Api doc builder (optional)
-            services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "API", Version = "v1"}); });
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo {Title = "API", Version = "v1"});
+                c.CustomSchemaIds(x => x.FullName);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -18,14 +18,12 @@ namespace Persistence
                 {
                     new AppUser
                     {
-                        Id = new Guid().ToString(),
                         DisplayName = "User 1",
                         UserName = "user1",
                         Email = "user1@test.com"
                     },
                     new AppUser
                     {
-                        Id = new Guid().ToString(),
                         DisplayName = "User 2",
                         UserName = "user2",
                         Email = "user2@test.com"
@@ -37,9 +35,9 @@ namespace Persistence
                     await userManager.CreateAsync(user, "Pa$$w0rd");
                 }
             }
-            
+
             // populate other db sets here
-            
+
 
             await context.SaveChangesAsync();
         }
